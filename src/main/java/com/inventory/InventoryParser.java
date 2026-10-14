@@ -1,4 +1,4 @@
-package main.java;
+package com.inventory;
 import java.nio.file.Path;
 import java.io.IOException;
 import java.util.Map;

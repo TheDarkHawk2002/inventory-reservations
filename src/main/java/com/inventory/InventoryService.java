@@ -1,4 +1,4 @@
-package main.java;
+package com.inventory;
 import java.util.Map;
 
 public class InventoryService {

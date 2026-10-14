@@ -1,4 +1,4 @@
-package main.java;
+package com.inventory;
 public class Reservation {
 
     public enum Status {

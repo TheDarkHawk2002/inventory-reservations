@@ -1,4 +1,4 @@
-package main.java;
+package com.inventory;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;

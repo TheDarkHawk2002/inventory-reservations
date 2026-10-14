@@ -1,4 +1,4 @@
-package main.java;
+package com.inventory;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.time.Instant;

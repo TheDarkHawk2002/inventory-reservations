@@ -1,4 +1,4 @@
-package main.java;
+package com.inventory;
 public class Main {
     public static void main(String[] args) {
         // TODO: Parse input, validate it, run the core logic, and print a report.
