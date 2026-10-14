@@ -1,0 +1,14 @@
+[
+  {
+    "reservationId": "RES-001",
+    "itemId": "ITEM-001",
+    "quantity": 3,
+    "status": "ACTIVE"
+  },
+  {
+    "reservationId": "RES-002",
+    "itemId": "ITEM-002",
+    "quantity": 2,
+    "status": "ACTIVE"
+  }
+]

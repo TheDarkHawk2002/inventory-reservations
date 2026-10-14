@@ -1,0 +1,17 @@
+[
+  {
+    "itemId": "ITEM-001",
+    "name": "Wireless Mouse",
+    "quantity": 25
+  },
+  {
+    "itemId": "ITEM-002",
+    "name": "Keyboard",
+    "quantity": 10
+  },
+  {
+    "itemId": "ITEM-003",
+    "name": "Monitor",
+    "quantity": 5
+  }
+]
