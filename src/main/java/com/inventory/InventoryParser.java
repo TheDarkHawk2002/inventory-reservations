@@ -1,27 +1,26 @@
 package com.inventory;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class InventoryParser {
-    private final ObjectMapper mapper = new ObjectMapper();
+    private final ObjectMapper mapper = new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
 
     public Map<String, InventoryItem> loadInventory(Path path) throws IOException {
         JsonNode root = readArray(path);
         Map<String, InventoryItem> inventory = new LinkedHashMap<>();
         for (JsonNode node : root) {
-            InventoryItem item = new InventoryItem(
-                    requiredText(node, "itemId"),
-                    requiredText(node, "name"),
-                    requiredInt(node, "quantity"));
+            InventoryItem item = new InventoryItem(requiredText(node, "itemId"),
+                    requiredText(node, "name"), requiredInt(node, "quantity"));
             if (inventory.putIfAbsent(item.getItemId(), item) != null) {
                 throw new IOException("Duplicate itemId in inventory: " + item.getItemId());
             }
@@ -50,6 +49,22 @@ public class InventoryParser {
             }
         }
         return reservations;
+    }
+
+    public void saveInventory(Map<String, InventoryItem> inventory, Path path) throws IOException {
+        writeJson(inventory.values(), path);
+    }
+
+    public void saveReservations(Map<String, Reservation> reservations, Path path) throws IOException {
+        writeJson(reservations.values(), path);
+    }
+
+    private void writeJson(Object value, Path path) throws IOException {
+        if (path == null) throw new IllegalArgumentException("path must not be null");
+        Path absolute = path.toAbsolutePath().normalize();
+        Path parent = absolute.getParent();
+        if (parent != null) Files.createDirectories(parent);
+        mapper.writeValue(absolute.toFile(), value);
     }
 
     private JsonNode readArray(Path path) throws IOException {
