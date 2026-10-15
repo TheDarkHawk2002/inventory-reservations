@@ -11,11 +11,15 @@ public class Reservation {
     private Status status;
 
     public Reservation(String reservationId, String itemId, int quantity) {
+        this(reservationId, itemId, quantity, Status.ACTIVE);
+    }
+
+    public Reservation(String reservationId, String itemId, int quantity, Status status) {
         this.reservationId = requireText(reservationId, "reservationId");
         this.itemId = requireText(itemId, "itemId");
         if (quantity <= 0) throw new IllegalArgumentException("quantity must be positive");
         this.quantity = quantity;
-        this.status = Status.ACTIVE;
+        this.status = Objects.requireNonNull(status, "status must not be null");
     }
 
     public String getReservationId() { return reservationId; }
@@ -25,9 +29,7 @@ public class Reservation {
 
     void changeStatus(Status newStatus) {
         Objects.requireNonNull(newStatus, "newStatus must not be null");
-        if (status != Status.ACTIVE) {
-            throw new IllegalStateException("Only active reservations can change status");
-        }
+        if (status != Status.ACTIVE) throw new IllegalStateException("Only active reservations can change status");
         if (newStatus == Status.ACTIVE) throw new IllegalArgumentException("New status must be terminal");
         status = newStatus;
     }
