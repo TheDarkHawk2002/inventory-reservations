@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Local solution notes must never be published
 .private/
 
@@ -20,3 +21,27 @@ target/
 /logs/*.jsonl
 /reports/*
 !/reports/.gitkeep
+=======
+# Local solution notes must never be published
+.private/
+
+# Common generated files
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+node_modules/
+dist/
+build/
+target/
+*.class
+.idea/
+.vscode/
+.DS_Store
+
+# Mutable local application data and generated reports
+/data/
+/logs/*.jsonl
+/reports/*
+!/reports/.gitkeep
+>>>>>>> ca9f3de4470b22ad968edbac2a0069dd211a70f7
